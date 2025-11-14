@@ -333,8 +333,8 @@ For more troubleshooting, see [PROJECT_SETUP_README.md](PROJECT_SETUP_README.md)
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+- GitHub: [@yourusername](https://github.com/dipak0000812)
+- Email: dhangardip09@gmail.com
 - Project: Economics & Finance Course
 
 ---
@@ -352,16 +352,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Chart.js for beautiful visualizations
 - Flask team for simple yet powerful framework
 
----
 
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [PROJECT_SETUP_README.md](PROJECT_SETUP_README.md)
-2. Review error messages carefully
-3. Open an issue on GitHub
-4. Contact: your.email@example.com
 
 ---
 
