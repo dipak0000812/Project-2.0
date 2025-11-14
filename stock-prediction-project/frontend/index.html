@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction - ML Model</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>📈 Stock Price Predictor</h1>
+            <p>AI-Powered Machine Learning Model for Stock Market Predictions</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Input Section -->
+        <div class="card input-card">
+            <h2>🎯 Make a Prediction</h2>
+            <form id="predictionForm">
+                <div class="form-group">
+                    <label for="stockTicker">Stock Ticker Symbol</label>
+                    <input 
+                        type="text" 
+                        id="stockTicker" 
+                        placeholder="e.g., AAPL, GOOGL, MSFT, TSLA" 
+                        required
+                        autocomplete="off"
+                    >
+                    <small>Enter the stock symbol you want to predict</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="predictionDays">Prediction Period</label>
+                    <select id="predictionDays">
+                        <option value="1">Next Day</option>
+                        <option value="7">Next Week (7 days)</option>
+                        <option value="30">Next Month (30 days)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="predictBtn">
+                    <span class="btn-text">Predict Price</span>
+                    <span class="btn-loader" style="display: none;">
+                        <div class="spinner"></div> Analyzing...
+                    </span>
+                </button>
+            </form>
+
+            <!-- Popular Stocks Quick Select -->
+            <div class="quick-select">
+                <p>Quick Select:</p>
+                <div class="stock-chips">
+                    <button class="chip" data-ticker="AAPL">🍎 Apple</button>
+                    <button class="chip" data-ticker="GOOGL">🔍 Google</button>
+                    <button class="chip" data-ticker="MSFT">💻 Microsoft</button>
+                    <button class="chip" data-ticker="TSLA">🚗 Tesla</button>
+                    <button class="chip" data-ticker="AMZN">📦 Amazon</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="card results-card" id="resultsCard" style="display: none;">
+            <h2>📊 Prediction Results</h2>
+            
+            <!-- Current Price Info -->
+            <div class="price-info">
+                <div class="price-box">
+                    <span class="label">Current Price</span>
+                    <span class="value" id="currentPrice">$0.00</span>
+                </div>
+                <div class="price-box">
+                    <span class="label">Predicted Price</span>
+                    <span class="value highlight" id="predictedPrice">$0.00</span>
+                </div>
+                <div class="price-box">
+                    <span class="label">Expected Change</span>
+                    <span class="value" id="priceChange">$0.00 (0%)</span>
+                </div>
+            </div>
+
+            <!-- Trend Indicator -->
+            <div class="trend-indicator" id="trendIndicator">
+                <div class="trend-icon" id="trendIcon">📊</div>
+                <div class="trend-text">
+                    <h3 id="trendTitle">Analyzing...</h3>
+                    <p id="trendDescription">Please wait while we analyze the data</p>
+                </div>
+            </div>
+
+            <!-- Model Performance Metrics -->
+            <div class="metrics-section">
+                <h3>🎯 Model Performance Metrics</h3>
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <span class="metric-label">Accuracy (R²)</span>
+                        <span class="metric-value" id="r2Score">0.85</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">Mean Error (MAE)</span>
+                        <span class="metric-value" id="maeScore">$23.50</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">Error %</span>
+                        <span class="metric-value" id="mapeScore">2.5%</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">Confidence</span>
+                        <span class="metric-value" id="confidence">High</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Placeholder -->
+            <div class="chart-section">
+                <h3>📈 Price Trend Visualization</h3>
+                <canvas id="priceChart"></canvas>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="info-section">
+                <div class="info-box info-warning">
+                    <strong>⚠️ Disclaimer:</strong> This prediction is based on historical data and machine learning algorithms. 
+                    Stock market predictions are not guaranteed and should not be the sole basis for investment decisions.
+                </div>
+            </div>
+        </div>
+
+        <!-- Historical Data Section -->
+        <div class="card history-card" id="historyCard" style="display: none;">
+            <h2>📜 Recent Predictions History</h2>
+            <div class="history-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Stock</th>
+                            <th>Current Price</th>
+                            <th>Predicted Price</th>
+                            <th>Change</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- History rows will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="card info-card">
+            <h2>🤖 How Our ML Model Works</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📥</div>
+                    <h3>Data Collection</h3>
+                    <p>We gather historical stock data including price, volume, and market indicators</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Feature Engineering</h3>
+                    <p>Creating technical indicators like moving averages, volatility, and momentum</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🧠</div>
+                    <h3>ML Algorithm</h3>
+                    <p>Random Forest model trained on years of market data for accurate predictions</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-time Analysis</h3>
+                    <p>Continuous learning and adaptation to current market conditions</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Stock Prediction ML Model | Economics & Finance Project</p>
+            <p>Built with Python, scikit-learn, and Machine Learning</p>
+        </div>
+    </footer>
+
+    <!-- Include JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
